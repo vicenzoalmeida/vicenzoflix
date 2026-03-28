@@ -2,6 +2,7 @@ import { categories } from './data.js';
 import { createCarousel } from './components/Carousel.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+    // localStorage.removeItem('perfilAtivo'); // Removido para manter o perfil ativo
 
     // Recupera o perfil ativo do localStorage
     const perfilAtivo = localStorage.getItem('perfilAtivo');
