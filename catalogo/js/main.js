@@ -12,7 +12,12 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const { nome, imagem } = JSON.parse(perfilAtivo);
             if (kidsLink) kidsLink.textContent = nome;
-            if (profileIcon) profileIcon.src = imagem || defaultProfileImg;
+            let imgPath = imagem;
+            // Se for um caminho relativo de assets, ajusta para funcionar no catálogo
+            if (imgPath && !imgPath.startsWith('http') && !imgPath.startsWith('..')) {
+                imgPath = '../' + imgPath;
+            }
+            if (profileIcon) profileIcon.src = imgPath || defaultProfileImg;
         } catch (e) {
             // Se der erro, remove o perfil inválido
             localStorage.removeItem('perfilAtivo');
