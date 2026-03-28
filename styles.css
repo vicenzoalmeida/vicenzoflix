@@ -1,0 +1,467 @@
+/* Remove sublinhado e cor de link do perfil */
+.profile a, .profile a:visited, .profile a:active, .profile a:link, .profile a:hover {
+    text-decoration: none !important;
+    color: inherit !important;
+}
+/* Reset e Variáveis */
+*,
+*::before,
+*::after {
+    margin: 0; /* Remove espaçamento padrão dos navegadores */
+    padding: 0;
+    box-sizing: border-box; /* O tamanho do elemento inclui padding e border (não apenas conteúdo) */
+}
+
+:root {
+    /* Variáveis CSS reutilizáveis em todo o projeto */
+    --color-primary: #E50914; /* Cor vermelha principal (identidade Netflix) */
+    --color-dark: #141414; /* Cor de fundo escura base */
+    --color-dark-light: #221f1f; /* Cor de fundo escura um pouco mais clara */
+    --color-text: #ffffff; /* Cor do texto branco */
+    --color-text-secondary: #808080; /* Cor do texto secundário cinza */
+    --font-primary: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; /* Fontes do sistema */
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Transição suave para todos os efeitos */
+}
+
+/* Light mode */
+[data-theme="light"] {
+    --color-dark: #f5f5f5;
+    --color-dark-light: #e0e0e0;
+    --color-text: #181818;
+    --color-text-secondary: #444;
+    background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+}
+
+body[data-theme="light"] {
+    background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+    color: var(--color-text);
+}
+
+body[data-theme="dark"] {
+    background: linear-gradient(135deg, var(--color-dark) 0%, var(--color-dark-light) 100%);
+    color: var(--color-text);
+}
+
+/* Body e elementos base */
+html {
+    scroll-behavior: smooth; /* Faz o scroll ser suave ao navegar (âncoras com #) */
+}
+
+body {
+    background: linear-gradient(135deg, var(--color-dark) 0%, var(--color-dark-light) 100%); /* Gradiente diagonal */
+    color: var(--color-text); /* Cor padrão do texto em branco */
+    font-family: var(--font-primary); /* Usa as fontes do sistema definidas em :root */
+    font-size: 16px; /* Tamanho base do texto */
+    line-height: 1.6; /* Espaçamento entre linhas de texto */
+    min-height: 100vh; /* Corpo ocupa no mínimo a altura da tela */
+}
+
+/* Main */
+main {
+    padding: 60px 20px; /* Espaçamento interno: 60px topo/baixo, 20px lados */
+    max-width: 1200px; /* Largura máxima do conteúdo */
+    margin: 0 auto; /* Centraliza horizontalmente */
+    min-height: 100vh; /* Ocupa no mínimo a altura da tela */
+    display: flex; /* Ativa flexbox para layout flexível */
+    flex-direction: column; /* Alinha itens em coluna (vertical) */
+    justify-content: center; /* Centraliza conteúdo verticalmente */
+    align-items: center; /* Centraliza conteúdo horizontalmente */
+}
+
+/* Header */
+header {
+    text-align: center; /* Alinha o texto para o centro */
+    margin-bottom: 60px; /* Espaçamento abaixo do header */
+}
+
+header h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem); /* Font-size fluida */
+    font-weight: 700; /* Peso da fonte muito bold */
+    letter-spacing: -0.5px; /* Reduz o espaço entre letras */
+    margin-bottom: 10px; /* Espaçamento abaixo do título */
+    animation: fadeInDown 0.8s ease-out; /* Animação: fadeInDown */
+}
+
+/* Seção de Perfis */
+.profiles {
+    width: 100%; /* Ocupa toda a largura disponível */
+    animation: fadeInUp 0.8s ease-out 0.2s both; /* Animação: fadeInUp com delay */
+}
+
+.profiles__wrapper {
+    list-style: none; /* Remove bullets da ul */
+    margin: 0; /* Remove margin padrão */
+    padding: 0; /* Remove padding padrão */
+}
+
+.profiles__container {
+    list-style: none; /* Remove bullets do li */
+}
+
+.profiles__list {
+    list-style: none; /* Remove numeração/bullets da ol */
+    display: grid; /* Ativa o CSS Grid para layout de grades */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Colunas flexíveis */
+    gap: 40px; /* Espaço entre itens */
+    justify-items: center; /* Centraliza itens horizontalmente */
+    margin: 0; /* Remove margin padrão */
+    padding: 0; /* Remove padding padrão */
+}
+
+/* Profile Card */
+.profile {
+    cursor: pointer; /* Muda o cursor para mão (indica interatividade) */
+    transition: var(--transition); /* Transição suave a todas as propriedades */
+    animation: scaleIn 0.6s ease-out both; /* Animação: scaleIn */
+}
+
+.profile:nth-child(1) {
+    animation-delay: 0.3s; /* Primeiro perfil começa em 0.3s */
+}
+
+.profile:nth-child(2) {
+    animation-delay: 0.4s; /* Segundo perfil começa em 0.4s */
+}
+
+.profile:nth-child(3) {
+    animation-delay: 0.5s; /* Terceiro perfil começa em 0.5s */
+}
+
+.profile:nth-child(4) {
+    animation-delay: 0.6s; /* Quarto perfil começa em 0.6s */
+}
+
+.profile:hover {
+    transform: scale(1.05); /* Aumenta o tamanho em 5% ao passar o mouse */
+}
+
+/* Figure */
+.profile__figure {
+    position: relative; /* Permite posicionar pseudo-elementos relativamente */
+    margin: 0; /* Remove o margin padrão */
+    overflow: hidden; /* Esconde conteúdo que ultrapassar as bordas */
+    border-radius: 4px; /* Arredonda levemente os cantos */
+}
+
+.profile__figure::before {
+    content: ''; /* Cria um pseudo-elemento vazio */
+    position: absolute; /* Posiciona absolutamente dentro do figure */
+    top: 0; /* Topo da área */
+    left: 0; /* Esquerda da área */
+    right: 0; /* Direita da área */
+    bottom: 0; /* Baixo da área */
+    background: linear-gradient(135deg, rgba(229, 9, 20, 0.7) 0%, rgba(229, 9, 20, 0) 100%); /* Gradiente vermelho diagonal */
+    opacity: 0; /* Começa invisível */
+    transition: var(--transition); /* Transição suave */
+    z-index: 1; /* Sobreposição fica acima da imagem */
+}
+
+.profile:hover .profile__figure::before {
+    opacity: 1; /* Fica visível ao passar o mouse */
+}
+
+/* Image */
+.profile__figure img {
+    width: 200px; /* Largura fixa */
+    height: 200px; /* Altura fixa */
+    object-fit: cover; /* Mantém proporção e preenche o espaço */
+    display: block; /* Garante que é elemento de bloco */
+    transition: var(--transition); /* Transição suave */
+    filter: brightness(1); /* Brilho inicial normalizado */
+}
+
+.profile:hover .profile__figure img {
+    filter: brightness(1.1) saturate(1.1); /* Aumenta brilho e saturação */
+    transform: scale(1.05); /* Aumenta o tamanho em 5% */
+}
+
+/* Figcaption */
+.profile__name {
+    display: block; /* Exibe como elemento de bloco */
+    padding: 16px; /* Espaçamento interno */
+    text-align: center; /* Centraliza o texto */
+    background: var(--color-dark-light); /* Fundo escuro inicial */
+    font-size: 1.1rem; /* Tamanho do texto */
+    font-weight: 500; /* Peso médio da fonte */
+    letter-spacing: 0.5px; /* Aumenta o espaço entre letras */
+    transition: var(--transition); /* Transição suave */
+}
+
+.profile:hover .profile__name {
+    background: var(--color-primary); /* Fundo fica vermelho */
+    color: var(--color-text); /* Texto branco */
+    font-weight: 600; /* Texto mais bold */
+}
+
+/* Animações */
+@keyframes fadeInDown {
+    from {
+        opacity: 0; /* Estado inicial: invisível */
+        transform: translateY(-30px); /* Deslocado 30px para cima */
+    }
+    to {
+        opacity: 1; /* Estado final: visível */
+        transform: translateY(0); /* Posicionado na posição correta */
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0; /* Estado inicial: invisível */
+        transform: translateY(30px); /* Deslocado 30px para baixo */
+    }
+    to {
+        opacity: 1; /* Estado final: visível */
+        transform: translateY(0); /* Posicionado na posição correta */
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0; /* Estado inicial: invisível */
+        transform: scale(0.8); /* Tamanho reduzido (80%) */
+    }
+    to {
+        opacity: 1; /* Estado final: visível */
+        transform: scale(1); /* Tamanho normal */
+    }
+}
+
+/* ========== RESPONSIVIDADE PARA DIFERENTES DEVICES ========== */
+
+/* Desktop Extra Large (1440px+) */
+@media (min-width: 1440px) {
+    main {
+        padding: 80px 40px; /* Padding generoso em desktops grandes */
+    }
+
+    header h1 {
+        font-size: 3.5rem; /* Título grande */
+        margin-bottom: 80px; /* Mais espaço abaixo */
+    }
+
+    .profiles__list {
+        gap: 60px; /* Espaço generoso entre items */
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Colunas maiores */
+    }
+
+    .profile__figure img {
+        width: 250px; /* Imagens maiores */
+        height: 250px;
+    }
+
+    .profile__name {
+        padding: 20px; /* Padding maior */
+        font-size: 1.3rem; /* Texto maior */
+    }
+}
+
+/* Desktop Large (1024px - 1439px) */
+@media (min-width: 1024px) and (max-width: 1439px) {
+    main {
+        padding: 70px 30px; /* Espaçamento confortável */
+    }
+
+    header h1 {
+        font-size: 3rem; /* Título grande */
+        margin-bottom: 60px;
+    }
+
+    .profiles__list {
+        gap: 50px; /* Espaço generoso */
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Colunas maiores */
+    }
+
+    .profile__figure img {
+        width: 220px; /* Imagens maiores */
+        height: 220px;
+    }
+
+    .profile__name {
+        padding: 18px; /* Padding confortável */
+        font-size: 1.2rem;
+    }
+}
+
+/* Tablet (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+    main {
+        padding: 50px 25px; /* Espaçamento adequado */
+    }
+
+    header h1 {
+        font-size: 2.2rem; /* Título médio */
+        margin-bottom: 50px;
+    }
+
+    .profiles__list {
+        gap: 40px; /* Espaço bem distribuído */
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Colunas adaptadas */
+    }
+
+    .profile__figure img {
+        width: 180px; /* Imagens adequadas */
+        height: 180px;
+    }
+
+    .profile__name {
+        padding: 15px; /* Padding adequado */
+        font-size: 1.05rem;
+    }
+}
+
+/* Tablet Pequeno / Mobile Landscape (481px - 767px) */
+@media (min-width: 481px) and (max-width: 767px) {
+    main {
+        padding: 40px 16px; /* Padding reduzido */
+    }
+
+    header h1 {
+        font-size: 1.8rem; /* Título menor */
+        margin-bottom: 40px;
+    }
+
+    .profiles__list {
+        gap: 30px; /* Espaço moderado */
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Três colunas */
+    }
+
+    .profile__figure img {
+        width: 150px; /* Imagens menores */
+        height: 150px;
+    }
+
+    .profile__name {
+        padding: 12px;
+        font-size: 1rem;
+    }
+}
+
+/* Mobile (320px - 480px) */
+@media (max-width: 480px) {
+    main {
+        padding: 30px 12px; /* Padding bem reduzido */
+    }
+
+    header h1 {
+        font-size: 1.5rem; /* Título pequeno */
+        margin-bottom: 35px; /* Espaço reduzido */
+    }
+
+    .profiles__list {
+        gap: 20px; /* Pouco espaço entre items */
+        grid-template-columns: repeat(2, 1fr); /* Força 2 colunas iguais */
+    }
+
+    .profile__figure img {
+        width: 120px; /* Imagens pequenas */
+        height: 120px;
+    }
+
+    .profile__name {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Mobile Muito Pequeno (< 320px) */
+@media (max-width: 320px) {
+    main {
+        padding: 20px 8px; /* Padding mínimo */
+    }
+
+    header h1 {
+        font-size: 1.2rem; /* Título bem pequeno */
+        margin-bottom: 25px;
+    }
+
+    .profiles__list {
+        gap: 15px; /* Espaço mínimo */
+        grid-template-columns: 1fr; /* Uma coluna */
+    }
+
+    .profile__figure img {
+        width: 100px; /* Imagens bem pequenas */
+        height: 100px;
+    }
+
+    .profile__name {
+        padding: 8px;
+        font-size: 0.8rem;
+    }
+}
+
+/* Mobile em Landscape (altura menor que largura) */
+@media (max-height: 600px) and (orientation: landscape) {
+    main {
+        padding: 20px 12px; /* Padding reduzido na altura */
+        min-height: auto;
+    }
+
+    header h1 {
+        margin-bottom: 20px; /* Menos espaço vertical */
+    }
+
+    .profiles__list {
+        gap: 20px;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Colunas menores */
+    }
+
+    .profile__figure img {
+        width: 120px;
+        height: 120px;
+    }
+}
+
+/* Acessibilidade: Respeita prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important; /* Remove animações */
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .profile:hover {
+        transform: none; /* Remove transformação no hover */
+    }
+    
+    .profile__figure img:hover {
+        filter: none; /* Remove filtros no hover */
+        transform: none;
+    }
+
+    .profile:hover .profile__name {
+        background: var(--color-primary);
+    }
+}
+
+/* Dispositivos com High DPI (Retina) */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .profile__figure img {
+        image-rendering: -webkit-optimize-contrast; /* Melhora a qualidade */
+    }
+}
+
+/* Modo escuro do sistema operacional */
+@media (prefers-color-scheme: dark) {
+    body {
+        background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+    }
+}
+
+/* Ativa recursos específicos para telas grandes */
+@media (min-width: 1920px) {
+    main {
+        padding: 100px 50px;
+    }
+
+    .profiles__list {
+        gap: 80px;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    .profile__figure img {
+        width: 280px;
+        height: 280px;
+    }
+}
